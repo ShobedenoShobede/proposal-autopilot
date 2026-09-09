@@ -143,4 +143,20 @@ if submitted:
         st.markdown(paypal_html, unsafe_allow_html=True)
         st.caption(f"💰 {deposit:.2f} USD will be charged to your client. You get paid instantly to {PAYPAL_EMAIL}")
         
+        # --- VIRAL REFERRAL ENGINE (Add this to app.py) ---
+        st.divider()
+        st.subheader("🔄 Share & Earn (Free Proposals)")
+        
+        # Generate a unique ID based on their session
+        import hashlib
+        
+        if "referral_id" not in st.session_state:
+            st.session_state.referral_id = hashlib.md5(str(datetime.datetime.now()).encode()).hexdigest()[:8]
+        
+        ref_link = f"https://proposal-autopilot-wjdcknhjrbchzcy8ydztas.streamlit.app/?ref={st.session_state.referral_id}"
+        
+        st.caption("Refer a friend. When they generate their first proposal, you both get 10% off your next deposit.")
+        st.code(ref_link, language="text")
+        st.caption("📊 Share this link on LinkedIn, Twitter, or in your freelancer groups.")
+
         st.info("📌 **Next Step:** Send the PDF to your client, and direct them to this page to pay the deposit.")
